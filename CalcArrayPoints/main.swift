@@ -84,11 +84,19 @@ func calcArray(_ cmd: String, _ arr: [Int]) throws -> String {
 }
 
 func addTuple(_ PointA: (x: Int, y: Int), _ PointB: (x: Int, y: Int)) -> (Int, Int) {
-        return (PointA.x + PointB.x, PointA.y + PointB.y)
+    return (PointA.x + PointB.x, PointA.y + PointB.y)
 }
 
 func subTuple(_ PointA: (x: Int, y: Int), _ PointB: (x: Int, y: Int)) -> (Int, Int) {
-        return (PointA.x - PointB.x, PointA.y - PointB.y)
+    return (PointA.x - PointB.x, PointA.y - PointB.y)
+}
+
+func addTuple(_ PointA: (x: Double, y: Double), _ PointB: (x: Double, y: Double)) -> (Double, Double) {
+    return (PointA.x + PointB.x, PointA.y + PointB.y)
+}
+
+func subTuple(_ PointA: (x: Double, y: Double), _ PointB: (x: Double, y: Double)) -> (Double, Double) {
+    return (PointA.x - PointB.x, PointA.y - PointB.y)
 }
 
 func addDict(_ PointA: [String: Int], _ PointB: [String: Int]) throws -> [String: Int] {
@@ -101,7 +109,7 @@ func addDict(_ PointA: [String: Int], _ PointB: [String: Int]) throws -> [String
 }
 
 func subDict(PointA: [String: Int], PointB: [String: Int]) throws -> [String: Int] {
-    if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "x")) {
+    if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "y")) {
         return ["x": PointA["x"]! - PointB["x"]!, "y": PointA["y"]! - PointB["y"]!]
     } else {
         throw "error"
@@ -109,7 +117,7 @@ func subDict(PointA: [String: Int], PointB: [String: Int]) throws -> [String: In
 }
 
 func addDict(_ PointA: [String: Double], _ PointB: [String: Double]) throws -> [String: Double] {
-    if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "x")) {
+    if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "y")) {
         return ["x": PointA["x"]! + PointB["x"]!, "y": PointA["y"]! + PointB["y"]!]
     } else {
         throw "error"
@@ -125,35 +133,25 @@ func subDict(PointA: [String: Double], PointB: [String: Double]) throws -> [Stri
     }
 }
 
-func valid(_ dict: [String: Int], _ key: String) -> Bool {
-    var count = 0;
-    for key in dict.keys {
-        if (key == key) {
-            count += 1
-        }
-    }
-    return count == 1 && dict.keys.contains(key)
+func valid(_ dict: [String: Int], _ coordName: String) -> Bool {
+    return dict.keys.contains(coordName)
 }
 
-func valid(_ dict: [String: Double], _ key: String) -> Bool {
-    var count = 0;
-    for key in dict.keys {
-        if (key == key) {
-            count += 1
-        }
-    }
-    return count == 1 && dict.keys.contains(key)
+func valid(_ dict: [String: Double], _ coordName: String) -> Bool {
+    return dict.keys.contains(coordName)
 }
 
-print(add(1,2))
-print(sub(3,4))
+print(add(1, 2))
+print(sub(3, 4))
 print(mul(5, 6))
 print(div(10, 3))
 print(try calc("add", 1, 2))
 print(addArray([1, 2, 3]))
 print(mulArray([1, 2, 3]))
 print(count([1, 2, 3]))
-print(avg([1,2,3,4,5,6]))
+print(avg([1, 2, 3, 4, 5, 6]))
 print(try calcArray("add", [1, 2, 3]))
-print(addTuple((3,4), (1,2)))
-print(try addDict(["x": 1.0], ["y": 2.0]))
+print(addTuple((3, 4), (1, 2)))
+print(addTuple((3.0, 4.0), (1.0, 2.0)))
+print(try addDict(["x": 1.0, "y": 2.0], ["x": 2.0, "y": 2.0]))
+print(try addDict(["x": 1, "y": 2], ["x": 2, "y": 3]))
