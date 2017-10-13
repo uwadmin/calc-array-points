@@ -44,7 +44,7 @@ func calc(_ cmd: String, _ operandA: Int, _ operandB: Int) throws -> String {
     }
 }
 
-func add(_ arr: [Int]) -> String {
+func addArray(_ arr: [Int]) -> String {
     var result: Int = 0
     for num in arr {
         result += num
@@ -52,8 +52,8 @@ func add(_ arr: [Int]) -> String {
     return String(result)
 }
 
-func mul(_ arr: [Int]) -> String {
-    var result = 0
+func mulArray(_ arr: [Int]) -> String {
+    var result = 1
     for num in arr {
         result *= num
     }
@@ -72,10 +72,10 @@ func avg(_ arr: [Int]) -> String {
     return (Double(sum) / Double(arr.count)).clean
 }
 
-func calc(cmd: String, arr: [Int]) throws -> String {
+func calcArray(_ cmd: String, _ arr: [Int]) throws -> String {
     switch cmd {
-    case "add": return add(arr)
-    case "mul": return mul(arr)
+    case "add": return addArray(arr)
+    case "mul": return mulArray(arr)
     case "count": return count(arr)
     case "avg": return avg(arr)
     default:
@@ -83,23 +83,15 @@ func calc(cmd: String, arr: [Int]) throws -> String {
     }
 }
 
-func add(_ PointA: (x: Int, y: Int), _ PointB: (x: Int, y: Int)) throws -> (x: Int, y: Int) {
-    if Mirror(reflecting: PointA).children.count != 2 || Mirror(reflecting: PointB).children.count != 2 {
-        throw "error"
-    } else {
+func addTuple(_ PointA: (x: Int, y: Int), _ PointB: (x: Int, y: Int)) -> (Int, Int) {
         return (PointA.x + PointB.x, PointA.y + PointB.y)
-    }
 }
 
-func sub(_ PointA: (x: Int, y: Int), _ PointB: (x: Int, y: Int)) throws -> (x: Int, y: Int) {
-    if Mirror(reflecting: PointA).children.count != 2 || Mirror(reflecting: PointB).children.count != 2 {
-        throw "error"
-    } else {
+func subTuple(_ PointA: (x: Int, y: Int), _ PointB: (x: Int, y: Int)) -> (Int, Int) {
         return (PointA.x - PointB.x, PointA.y - PointB.y)
-    }
 }
 
-func add(_ PointA: [String: Int], _ PointB: [String: Int]) throws -> [String: Int] {
+func addDict(_ PointA: [String: Int], _ PointB: [String: Int]) throws -> [String: Int] {
     if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "x")) {
         return ["x": PointA["x"]! + PointB["x"]!, "y": PointA["y"]! + PointB["y"]!]
     } else {
@@ -108,13 +100,29 @@ func add(_ PointA: [String: Int], _ PointB: [String: Int]) throws -> [String: In
 
 }
 
-func sub(PointA: [String: Int], PointB: [String: Int]) throws -> [String: Int] {
+func subDict(PointA: [String: Int], PointB: [String: Int]) throws -> [String: Int] {
     if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "x")) {
         return ["x": PointA["x"]! - PointB["x"]!, "y": PointA["y"]! - PointB["y"]!]
     } else {
         throw "error"
     }
+}
 
+func addDict(_ PointA: [String: Double], _ PointB: [String: Double]) throws -> [String: Double] {
+    if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "x")) {
+        return ["x": PointA["x"]! + PointB["x"]!, "y": PointA["y"]! + PointB["y"]!]
+    } else {
+        throw "error"
+    }
+
+}
+
+func subDict(PointA: [String: Double], PointB: [String: Double]) throws -> [String: Double] {
+    if (valid(PointA, "x") && valid(PointA, "y") && valid(PointB, "x") && valid(PointB, "x")) {
+        return ["x": PointA["x"]! - PointB["x"]!, "y": PointA["y"]! - PointB["y"]!]
+    } else {
+        throw "error"
+    }
 }
 
 func valid(_ dict: [String: Int], _ key: String) -> Bool {
@@ -126,3 +134,26 @@ func valid(_ dict: [String: Int], _ key: String) -> Bool {
     }
     return count == 1 && dict.keys.contains(key)
 }
+
+func valid(_ dict: [String: Double], _ key: String) -> Bool {
+    var count = 0;
+    for key in dict.keys {
+        if (key == key) {
+            count += 1
+        }
+    }
+    return count == 1 && dict.keys.contains(key)
+}
+
+print(add(1,2))
+print(sub(3,4))
+print(mul(5, 6))
+print(div(10, 3))
+print(try calc("add", 1, 2))
+print(addArray([1, 2, 3]))
+print(mulArray([1, 2, 3]))
+print(count([1, 2, 3]))
+print(avg([1,2,3,4,5,6]))
+print(try calcArray("add", [1, 2, 3]))
+print(addTuple((3,4), (1,2)))
+print(try addDict(["x": 1.0], ["y": 2.0]))
