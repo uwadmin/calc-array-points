@@ -133,25 +133,10 @@ func subDict(PointA: [String: Double], PointB: [String: Double]) throws -> [Stri
     }
 }
 
-func valid(_ dict: [String: Int], _ coordName: String) -> Bool {
-    return dict.keys.contains(coordName)
+func valid(_ dict: [String: Int], _ key: String) -> Bool {
+    return dict.keys.contains(key)
 }
 
-func valid(_ dict: [String: Double], _ coordName: String) -> Bool {
-    return dict.keys.contains(coordName)
+func valid(_ dict: [String: Double], _ key: String) -> Bool {
+    return dict.keys.contains(key)
 }
-
-print(add(1, 2))
-print(sub(3, 4))
-print(mul(5, 6))
-print(div(10, 3))
-print(try calc("add", 1, 2))
-print(addArray([1, 2, 3]))
-print(mulArray([1, 2, 3]))
-print(count([1, 2, 3]))
-print(avg([1, 2, 3, 4, 5, 6]))
-print(try calcArray("add", [1, 2, 3]))
-print(addTuple((3, 4), (1, 2)))
-print(addTuple((3.0, 4.0), (1.0, 2.0)))
-print(try addDict(["x": 1.0, "y": 2.0], ["x": 2.0, "y": 2.0]))
-print(try addDict(["x": 1, "y": 2], ["x": 2, "y": 3]))
